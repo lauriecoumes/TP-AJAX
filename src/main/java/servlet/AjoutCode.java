@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Properties;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,16 +24,19 @@ import model.DataSourceFactory;
  *
  * @author pedago
  */
+@WebServlet(name = "AjoutCode", urlPatterns = {"/AjoutCode"})
 public class AjoutCode extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Créér le DAO avec sa source de données
         DAO dao = new DAO(DataSourceFactory.getDataSource());
+        String code = request.getParameter("code");
+        String taux = request.getParameter("taux");
         // Properties est une Map<clé, valeur> pratique pour générer du JSON
         Properties resultat = new Properties();
         try {
-            resultat.put("records", dao.allCodes());
+            resultat.put("records", dao.addDiscountCode(code, Float.valueOf(taux)));
         } catch (SQLException ex) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resultat.put("records", Collections.EMPTY_LIST);
