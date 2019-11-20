@@ -100,12 +100,17 @@
 
         <!-- Le template qui sert à formatter la liste des codes -->
         <script id="codesTemplate" type="text/template">
-            <TABLE>
-            <tr><th>Code</th><th>Taux</th><th>Action</th></tr>
+            <TABLE style="width:15%" border="1">
+            <tr style="background-color:grey; color:white"><th >Code</th>
+                <th>Taux</th>
+                <th>Action</th></tr>
             {{! Pour chaque enregistrement }}
             {{#records}}
                 {{! Une ligne dans la table }}
-                <TR><TD>{{discountCode}}</TD><TD>{{rate}}</TD><TD><button onclick="deleteCode('{{discountCode}}')">Supprimer</button></TD></TR>
+                <TR ><TD style="text-align:center">{{discountCode}}</TD>
+                    <TD style="text-align:center">{{rate}}</TD>
+                    <TD style="text-align:center">
+                    <button onclick="deleteCode('{{discountCode}}')">Supprimer</button></TD></TR>
             {{/records}}
             </TABLE>
         </script>
